@@ -59,6 +59,13 @@ async function run() {
       res.send(result)
     })
 
+    app.delete('/tranding/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await trandingCollection.deleteOne(query);
+      res.send(result)
+    })
+
     //upvote
 
     app.post('/upvotes', async (req, res) => {
