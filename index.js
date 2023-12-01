@@ -37,7 +37,7 @@ async function run() {
 
     //user collection
 
-    app.post('/users', async (req, res ) => {
+    app.post('/users', async (req, res) => {
       const user = req.body;
       const result = await userCollection.insertOne(user);
       res.send(result);
@@ -47,16 +47,16 @@ async function run() {
       res.send(result)
     })
 
-    app.get('/users/:email', async(req, res) => {
-      const email = req.params.email;
-            const query = {email: email};
-            const user = await userCollection.findOne(query);
-            let admin = false;
-            if(user){
-                admin = user?.role === 'admin';
-            }
-            res.send({admin});
-    })
+    // app.get('/allUsers/:email', async (req, res) => {
+    //   const email = req.params.email;
+    //   const query = { email: email }
+    //   const user = await userCollection.findOne(query);
+    //   let admin = false;
+    //   if(user){
+    //     admin = user?.role == 'admin'
+    //   }
+    //   res.send({admin})
+    // })
 
     //tranding
     app.post('/tranding', async (req, res) => {
