@@ -45,23 +45,42 @@ async function run() {
       const result = await trandingCollection.find().toArray()
       res.send(result)
     })
-    app.put('/tranding/:id', async(req, res) => {
+    app.put('/tranding/:id', async (req, res) => {
       const id = req.params.id;
       const tranding = req.body.tranding;
-      const filter = {_id: new ObjectId(id)}
-      const options = {upsert: true}
+      const filter = { _id: new ObjectId(id) }
+      const options = { upsert: true }
       const updateTranding = {
-        $set:{
+        $set: {
           tranding: tranding + 1
         }
       }
       const result = await trandingCollection.updateOne(filter, tranding, options)
       res.send(result)
     })
+    app.patch('/productUpdate/:id', async (req, res) => {
+      const id = req.params.id;
+      const product = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          productName: product.productName,
+          productImage: product.productImage,
+          ownerName: product.ownerName,
+          ownerEmail: product.ownerEmail,
+          ownerImage: product.ownerImage,
+          tags: product.tags,
+          externallinks: product.externallinks,
+          description: product.description
+        }
+      }
+      const result = await trandingCollection.updateOne(filter, updateDoc)
+      res.send(result)
+    })
 
     app.delete('/tranding/:id', async (req, res) => {
       const id = req.params.id;
-      const query = {_id: new ObjectId(id)}
+      const query = { _id: new ObjectId(id) }
       const result = await trandingCollection.deleteOne(query);
       res.send(result)
     })
