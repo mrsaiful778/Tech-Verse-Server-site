@@ -33,6 +33,19 @@ async function run() {
     const upVoteCollection = client.db('featuredDB').collection('upvote')
     const reviewCollection = client.db('featuredDB').collection('review')
     const trandingCollection = client.db('featuredDB').collection('tranding')
+    const userCollection = client.db('featuredDB').collection('user')
+
+    //user collection
+
+    app.post('/users', async (req, res ) => {
+      const user = req.body;
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    })
+    app.get('/users', async (req, res) => {
+      const result = await userCollection.find().toArray()
+      res.send(result)
+    })
 
     //tranding
     app.post('/tranding', async (req, res) => {
