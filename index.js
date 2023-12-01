@@ -47,6 +47,17 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/users/:email', async(req, res) => {
+      const email = req.params.email;
+            const query = {email: email};
+            const user = await userCollection.findOne(query);
+            let admin = false;
+            if(user){
+                admin = user?.role === 'admin';
+            }
+            res.send({admin});
+    })
+
     //tranding
     app.post('/tranding', async (req, res) => {
       const tranding = req.body;
