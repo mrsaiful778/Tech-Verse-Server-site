@@ -47,7 +47,34 @@ async function run() {
       res.send(result)
     })
 
-    
+    app.patch('/users/moderator/:id', async (req, res) => {
+      const id = req.params.id;
+      const user = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const updatedUser = {
+        $set: {
+          role: 'moderator',
+          
+        }
+      }
+      const result = await userCollection.updateOne(filter, updatedUser);
+      res.send(result);
+    })
+    app.patch('/users/admin/:id', async (req, res) => {
+      const id = req.params.id;
+      const user = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const updatedUser = {
+        $set: {
+          role: 'admin',
+          
+        }
+      }
+      const result = await userCollection.updateOne(filter, updatedUser);
+      res.send(result);
+    })
+
+
     // app.get('/allUsers/:email', async (req, res) => {
     //   const email = req.params.email;
     //   const query = { email: email }
