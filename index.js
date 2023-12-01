@@ -60,7 +60,19 @@ async function run() {
       const result = await userCollection.updateOne(filter, updatedUser);
       res.send(result);
     })
-  
+    app.patch('/users/admin/:id', async (req, res) => {
+      const id = req.params.id;
+      const user = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const updatedUser = {
+        $set: {
+          role: 'admin',
+          
+        }
+      }
+      const result = await userCollection.updateOne(filter, updatedUser);
+      res.send(result);
+    })
 
 
     // app.get('/allUsers/:email', async (req, res) => {
